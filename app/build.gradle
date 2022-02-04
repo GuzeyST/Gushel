@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -29,9 +30,49 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    viewBinding{
+        enabled true
+    }
 }
 
 dependencies {
+
+    //Room------------------------------------
+    def roomVersion = "2.4.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    //Room------------------------------------
+
+    //Retrofit------------------------------------
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
+    //Retrofit------------------------------------
+
+    //Coroutines------------------------------------
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+    //Coroutines------------------------------------
+
+//    //ViewModel & LifeCycle--------------------------
+//    def lifecycle_version = "2.5.0-alpha01"
+//    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+//    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+//    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
+//    kapt("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
+//    //ViewModel & LifeCycle--------------------------
+
+    //Dagger 2----------------------------------------
+    def dagger_version = "2.28.3"
+    implementation ("com.google.dagger:dagger:$dagger_version")
+    kapt ("com.google.dagger:dagger-compiler:$dagger_version")
+    //Dagger 2----------------------------------------
+
+    //Glide
+    def glide_version = "4.12.0"
+    implementation ("com.github.bumptech.glide:glide:$glide_version")
+    annotationProcessor ("com.github.bumptech.glide:compiler:$glide_version")
+    //Glide
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'

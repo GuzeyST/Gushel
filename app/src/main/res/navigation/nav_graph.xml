@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/randomFragment">
+
+    <fragment
+        android:id="@+id/hotFragment"
+        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.HotFragment"
+        android:label="fragment_hot"
+        tools:layout="@layout/fragment_hot" />
+    <fragment
+        android:id="@+id/randomFragment"
+        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.RandomFragment"
+        android:label="fragment_random"
+        tools:layout="@layout/fragment_random" />
+    <fragment
+        android:id="@+id/latestFragment"
+        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.LatestFragment"
+        android:label="fragment_latest"
+        tools:layout="@layout/fragment_latest" />
+    <fragment
+        android:id="@+id/topFragment"
+        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.TopFragment"
+        android:label="fragment_top"
+        tools:layout="@layout/fragment_top" />
+</navigation>

@@ -19,6 +19,6 @@ class PictureMapper {
 
     private fun listPictureItemToListPicture(fromList: List<PictureItem>): List<Picture> =
         fromList.map {
-            Picture(it.description, it.gifURL)
+            Picture(it.id, it.description, it.gifURL)
         }
 }

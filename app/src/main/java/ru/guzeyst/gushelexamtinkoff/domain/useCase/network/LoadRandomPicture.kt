@@ -1,4 +1,4 @@
-package ru.guzeyst.gushelexamtinkoff.domain.useCase
+package ru.guzeyst.gushelexamtinkoff.domain.useCase.network
 
 import ru.guzeyst.gushelexamtinkoff.domain.PictureRepository
 

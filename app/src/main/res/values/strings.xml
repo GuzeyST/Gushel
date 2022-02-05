@@ -6,4 +6,5 @@
     <string name="title_latest">Последние</string>
     <string name="title_top">Лучшие</string>
     <string name="title_hot">Горячие</string>
+    <string name="content_description">Gif изображение</string>
 </resources>

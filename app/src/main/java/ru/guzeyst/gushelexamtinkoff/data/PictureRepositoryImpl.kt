@@ -8,7 +8,6 @@ import ru.guzeyst.gushelexamtinkoff.data.mapper.PictureMapper
 import ru.guzeyst.gushelexamtinkoff.data.network.ApiFactory
 import ru.guzeyst.gushelexamtinkoff.domain.PictureRepository
 import ru.guzeyst.gushelexamtinkoff.domain.model.Picture
-
 class PictureRepositoryImpl(context: Context): PictureRepository{
 
     private val pictureMapper = PictureMapper()

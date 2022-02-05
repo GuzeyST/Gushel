@@ -6,9 +6,9 @@ import ru.guzeyst.gushelexamtinkoff.domain.model.Picture
 interface PictureRepository {
     //network
     suspend fun loadRandomPicture()
-    suspend fun loadLatestPicturesList()
-    suspend fun loadHotPicturesList()
-    suspend fun loadTopPicturesList()
+    suspend fun loadLatestPicturesList(pageNumber: Int)
+    suspend fun loadHotPicturesList(pageNumber: Int)
+    suspend fun loadTopPicturesList(pageNumber: Int)
 
     //data base
     fun getPicturesFromDB(): LiveData<List<Picture>>

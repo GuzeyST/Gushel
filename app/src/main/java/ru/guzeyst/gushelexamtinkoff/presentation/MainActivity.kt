@@ -3,18 +3,24 @@ package ru.guzeyst.gushelexamtinkoff.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.setupWithNavController
+import ru.guzeyst.gushelexamtinkoff.R
 import ru.guzeyst.gushelexamtinkoff.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel by lazy {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        binding.bottomNavigationView.setupWithNavController(navController)
     }
 }

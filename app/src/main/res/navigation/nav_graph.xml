@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/hotFragment"
-        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.HotFragment"
+        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.hotFragment.HotFragment"
         android:label="fragment_hot"
         tools:layout="@layout/fragment_hot" />
     <fragment
         android:id="@+id/randomFragment"
-        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.RandomFragment"
+        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.randomFragment.RandomFragment"
         android:label="fragment_random"
         tools:layout="@layout/fragment_random" />
     <fragment
         android:id="@+id/latestFragment"
-        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.LatestFragment"
+        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.latestFragment.LatestFragment"
         android:label="fragment_latest"
         tools:layout="@layout/fragment_latest" />
     <fragment
         android:id="@+id/topFragment"
-        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.TopFragment"
+        android:name="ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.topFragment.TopFragment"
         android:label="fragment_top"
         tools:layout="@layout/fragment_top" />
 </navigation>

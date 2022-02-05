@@ -1,4 +1,4 @@
-package ru.guzeyst.gushelexamtinkoff.presentation.screenFragment
+package ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.topFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

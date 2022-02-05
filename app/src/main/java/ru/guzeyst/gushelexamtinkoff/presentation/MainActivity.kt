@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
-import ru.guzeyst.gushelexamtinkoff.R
 import ru.guzeyst.gushelexamtinkoff.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +20,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        binding.bottomNavigationView.setupWithNavController(navController)
+        navController = Navigation.findNavController(this, ru.guzeyst.gushelexamtinkoff.R.id.nav_host_fragment)
+        val bottomNavigation = binding.bottomNavigationView
+        bottomNavigation.setupWithNavController(navController)
     }
+
+
 }

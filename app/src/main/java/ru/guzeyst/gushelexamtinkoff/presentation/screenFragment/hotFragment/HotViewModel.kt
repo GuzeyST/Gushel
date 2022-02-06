@@ -2,21 +2,19 @@ package ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.hotFragment
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.guzeyst.gushelexamtinkoff.data.PictureRepositoryImpl
 import ru.guzeyst.gushelexamtinkoff.domain.useCase.database.GetHotListFromDB
-import ru.guzeyst.gushelexamtinkoff.domain.useCase.database.GetLatestListFromDB
-import ru.guzeyst.gushelexamtinkoff.domain.useCase.database.GetPicturesFromDB
 import ru.guzeyst.gushelexamtinkoff.domain.useCase.network.LoadHotPicturesList
-import ru.guzeyst.gushelexamtinkoff.domain.useCase.network.LoadLatestPicturesList
-import ru.guzeyst.gushelexamtinkoff.domain.useCase.network.LoadRandomPicture
+import javax.inject.Inject
 
-class HotViewModel(application: Application) : AndroidViewModel(application) {
+class HotViewModel @Inject constructor(
+    private val getHotListFromDB: GetHotListFromDB,
+    private val loadHotPicturesList: LoadHotPicturesList
+) : ViewModel() {
 
-    private val repo = PictureRepositoryImpl(application)
-    private val getHotListFromDB = GetHotListFromDB(repo)
-    private val loadHotPicturesList = LoadHotPicturesList(repo)
     val listPictures = getHotListFromDB.invoke()
     private var pageNumber = 0
 
@@ -24,15 +22,14 @@ class HotViewModel(application: Application) : AndroidViewModel(application) {
         loadImage()
     }
 
-    private fun loadImage(){
+    private fun loadImage() {
         viewModelScope.launch {
-            loadHotPicturesList.invoke(0)
+            loadHotPicturesList.invoke(pageNumber)
         }
     }
 
-    fun loadNextPage(){
+    fun loadNextPage() {
         pageNumber++
         loadImage()
     }
-
 }

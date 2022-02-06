@@ -1,17 +1,14 @@
 package ru.guzeyst.gushelexamtinkoff.presentation.adapters
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.util.Log
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestListener
-import ru.guzeyst.gushelexamtinkoff.R
 import ru.guzeyst.gushelexamtinkoff.databinding.PictureItemBinding
 import ru.guzeyst.gushelexamtinkoff.domain.model.Picture
 
@@ -32,14 +29,16 @@ class PicturesAdapter :
     override fun onBindViewHolder(holder: PictureAdapterViewHolder, position: Int) {
         with(holder.binding) {
             val pict = getItem(position)
+
+            val progressBar = getCircularProgressBar(holder.itemView.context)
+
             Glide.with(this.root)
                 .load(pict.gifURL)
-                .error(R.drawable.ic_baseline_error_24)
-                .placeholder(R.drawable.spiner)
+                .error(progressBar)
+                .placeholder(progressBar)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .fitCenter()
-                .centerCrop()
+                .centerInside()
                 .into(this.ivGif)
             tvDesc.text = pict.description
 
@@ -47,6 +46,14 @@ class PicturesAdapter :
                 positionAdapterListener?.invoke(Unit)
             }
         }
+    }
+
+    private fun getCircularProgressBar(context: Context): CircularProgressDrawable{
+        val circularProgress = CircularProgressDrawable(context)
+        circularProgress.strokeWidth = 10f
+        circularProgress.centerRadius = 45f
+        circularProgress.start()
+        return circularProgress
     }
 
     class PictureAdapterViewHolder(

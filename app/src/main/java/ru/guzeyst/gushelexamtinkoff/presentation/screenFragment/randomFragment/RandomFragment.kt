@@ -2,9 +2,11 @@ package ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.randomFragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -52,13 +54,13 @@ class RandomFragment : Fragment() {
         setClickListener()
     }
 
-    private fun setClickListener(){
-        binding.ibNext.setOnClickListener{viewModel.getNextImage()}
-        binding.ibBack.setOnClickListener{viewModel.getPreviousPicture()}
+    private fun setClickListener() {
+        binding.ibNext.setOnClickListener { viewModel.getNextImage() }
+        binding.ibBack.setOnClickListener { viewModel.getPreviousPicture() }
     }
 
-    private fun setObserveViewModel(){
-        viewModel.currentPictures.observe(viewLifecycleOwner){
+    private fun setObserveViewModel() {
+        viewModel.currentPictures.observe(viewLifecycleOwner) {
             val progressBar = getCircularProgressBar(requireContext())
             Glide.with(this)
                 .load(it.gifURL)
@@ -71,17 +73,24 @@ class RandomFragment : Fragment() {
             binding.tvDesc.text = it.description
         }
 
-        viewModel.isLastPicture.observe(viewLifecycleOwner){
-            binding.ibBack.visibility = when(it) {
+        viewModel.isLastPicture.observe(viewLifecycleOwner) {
+            binding.ibBack.visibility = when (it) {
                 true -> View.GONE
                 else -> View.VISIBLE
             }
         }
 
-        viewModel.isLoading.observe(this){
+        viewModel.isLoading.observe(this) {
             val isLoading = it
             binding.ibNext.isClickable = !isLoading
             binding.ibBack.isClickable = !isLoading
+        }
+
+        viewModel.isOnline.observe(this) {
+            binding.tvIsNotOnline.visibility  = when (it) {
+                true -> View.GONE
+                else -> View.VISIBLE
+            }
         }
     }
 

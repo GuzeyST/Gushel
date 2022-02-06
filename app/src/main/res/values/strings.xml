@@ -7,4 +7,6 @@
     <string name="title_top">Лучшие</string>
     <string name="title_hot">Горячие</string>
     <string name="content_description">Gif изображение</string>
+    <string name="desc_previous_image">Previous image</string>
+    <string name="desc_next_image">next image</string>
 </resources>

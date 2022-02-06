@@ -5,11 +5,13 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.guzeyst.gushelexamtinkoff.data.PictureRepositoryImpl
 import ru.guzeyst.gushelexamtinkoff.domain.model.Picture
+import ru.guzeyst.gushelexamtinkoff.domain.useCase.database.GetPicturesFromDB
 import ru.guzeyst.gushelexamtinkoff.domain.useCase.network.LoadRandomPicture
 import javax.inject.Inject
 
 class RandomViewModel @Inject constructor(
-    private val loadRandomPicture: LoadRandomPicture
+    private val loadRandomPicture: LoadRandomPicture,
+    private val getPicturesFromDB: GetPicturesFromDB
 ) : ViewModel() {
 
     private val listImage = mutableListOf<Picture>()
@@ -27,6 +29,10 @@ class RandomViewModel @Inject constructor(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
+    private val _isOnline = MutableLiveData<Boolean>()
+    val isOnline: LiveData<Boolean>
+        get() = _isOnline
+
     init {
         loadNextPicture()
     }
@@ -34,7 +40,7 @@ class RandomViewModel @Inject constructor(
     private fun getCurrentPicture() {
         if (!listImage.isEmpty()) {
             _currentPictures.value = listImage[currentIndex]
-            _isLastPicture.value = currentIndex == START_INDEX
+            _isLastPicture.value = currentIndex == START_INDEX || currentIndex == 0
         }
     }
 
@@ -42,17 +48,20 @@ class RandomViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
             val pic = loadRandomPicture.invoke()
-            pic?.let {
-                listImage.add(it)
-                getCurrentPicture()
+            if(pic != null) {
+                _isOnline.value = true
+                listImage.add(pic)
                 currentIndex++
+                getCurrentPicture()
+            }else{
+                _isOnline.value = false
             }
             _isLoading.value = false
         }
     }
 
     fun getNextImage() {
-        if (currentIndex == listImage.size - 1) {
+        if (currentIndex == listImage.size - 1 || listImage.isEmpty()) {
             loadNextPicture()
         } else {
             getCurrentPicture()
@@ -65,6 +74,6 @@ class RandomViewModel @Inject constructor(
     }
 
     companion object {
-        private const val START_INDEX = 0
+        private const val START_INDEX = -1
     }
 }

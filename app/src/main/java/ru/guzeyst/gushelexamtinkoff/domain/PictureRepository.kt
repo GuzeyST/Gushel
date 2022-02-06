@@ -5,7 +5,7 @@ import ru.guzeyst.gushelexamtinkoff.domain.model.Picture
 
 interface PictureRepository {
     //network
-    suspend fun loadRandomPicture()
+    suspend fun loadRandomPicture(): Picture
     suspend fun loadLatestPicturesList(pageNumber: Int)
     suspend fun loadHotPicturesList(pageNumber: Int)
     suspend fun loadTopPicturesList(pageNumber: Int)

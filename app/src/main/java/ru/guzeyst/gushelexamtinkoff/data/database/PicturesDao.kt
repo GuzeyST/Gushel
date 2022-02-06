@@ -22,4 +22,5 @@ interface PicturesDao {
 
     @Query("SELECT * FROM pictures WHERE type_chapter = :chapter")
     fun getPicturesListForChapter(chapter: TypeChapter): LiveData<List<PictureItem>>
+
 }

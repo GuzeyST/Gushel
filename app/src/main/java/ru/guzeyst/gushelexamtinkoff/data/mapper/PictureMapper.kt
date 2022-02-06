@@ -10,6 +10,10 @@ import ru.guzeyst.gushelexamtinkoff.domain.model.Picture
 
 class PictureMapper {
 
+    fun dtoToPicture(dto: PictureDto): Picture =
+        Picture(dto.id, dto.description, dto.gifURL)
+
+
     fun dtoToEntity(dto: PictureDto, type: TypeChapter): PictureItem =
         PictureItem(dto.id, type, dto.description, dto.gifURL)
 

@@ -10,7 +10,6 @@ tools:context=".presentation.screenFragment.latestFragment.LatestFragment">
     android:id="@+id/rv_Pictures"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:nestedScrollingEnabled="false"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:listitem="@layout/picture_item" />
+    tools:listitem="@layout/picture_item"/>
 </FrameLayout>

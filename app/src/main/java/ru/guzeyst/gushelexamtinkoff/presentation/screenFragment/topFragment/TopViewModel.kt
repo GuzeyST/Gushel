@@ -5,20 +5,33 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.guzeyst.gushelexamtinkoff.data.PictureRepositoryImpl
-import ru.guzeyst.gushelexamtinkoff.domain.useCase.database.GetPicturesFromDB
-import ru.guzeyst.gushelexamtinkoff.domain.useCase.network.LoadRandomPicture
+import ru.guzeyst.gushelexamtinkoff.domain.useCase.database.GetTopListFromDB
+import ru.guzeyst.gushelexamtinkoff.domain.useCase.network.LoadTopPicturesList
 
 class TopViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repo = PictureRepositoryImpl(application)
-    private val getPicturesFromDB = GetPicturesFromDB(repo)
-    private val loadRandomPicture = LoadRandomPicture(repo)
-    val listPictures = getPicturesFromDB.invoke()
+    private val getTopListFromDB = GetTopListFromDB(repo)
+    private val loadTopPicturesList = LoadTopPicturesList(repo)
+    val listPictures = getTopListFromDB.invoke()
+    private var pageNumber = 0
+
 
     init {
+        loadImage()
+
+    }
+
+    private fun loadImage() {
         viewModelScope.launch {
-            loadRandomPicture.invoke()
+            loadTopPicturesList.invoke(0)
         }
     }
+
+    fun loadNextPage() {
+        pageNumber++
+        loadImage()
+    }
+
 
 }

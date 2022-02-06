@@ -1,10 +1,9 @@
 package ru.guzeyst.gushelexamtinkoff.data.network
 
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
-import ru.guzeyst.gushelexamtinkoff.data.network.model.ResponseDto
 import ru.guzeyst.gushelexamtinkoff.data.network.model.PictureDto
+import ru.guzeyst.gushelexamtinkoff.data.network.model.ResponseDto
 
 interface ApiService {
 

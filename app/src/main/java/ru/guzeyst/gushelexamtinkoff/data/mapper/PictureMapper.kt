@@ -7,8 +7,9 @@ import ru.guzeyst.gushelexamtinkoff.data.database.entity.TypeChapter
 import ru.guzeyst.gushelexamtinkoff.data.network.model.ResponseDto
 import ru.guzeyst.gushelexamtinkoff.data.network.model.PictureDto
 import ru.guzeyst.gushelexamtinkoff.domain.model.Picture
+import javax.inject.Inject
 
-class PictureMapper {
+class PictureMapper @Inject constructor() {
 
     fun dtoToPicture(dto: PictureDto): Picture =
         Picture(dto.id, dto.description, dto.gifURL)

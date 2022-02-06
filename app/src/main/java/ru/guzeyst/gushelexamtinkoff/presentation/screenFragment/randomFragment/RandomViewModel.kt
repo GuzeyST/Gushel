@@ -1,21 +1,17 @@
 package ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.randomFragment
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.guzeyst.gushelexamtinkoff.data.PictureRepositoryImpl
 import ru.guzeyst.gushelexamtinkoff.domain.model.Picture
 import ru.guzeyst.gushelexamtinkoff.domain.useCase.network.LoadRandomPicture
-import kotlin.math.max
-import kotlin.math.min
+import javax.inject.Inject
 
-class RandomViewModel(application: Application) : AndroidViewModel(application) {
+class RandomViewModel @Inject constructor(
+    private val loadRandomPicture: LoadRandomPicture
+) : ViewModel() {
 
-    private val repo = PictureRepositoryImpl(application)
-    private val loadRandomPicture = LoadRandomPicture(repo)
     private val listImage = mutableListOf<Picture>()
     private var currentIndex = START_INDEX
 
@@ -36,31 +32,35 @@ class RandomViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     private fun getCurrentPicture() {
-        _currentPictures.value = listImage[currentIndex]
-        _isLastPicture.value = currentIndex == START_INDEX
+        if (!listImage.isEmpty()) {
+            _currentPictures.value = listImage[currentIndex]
+            _isLastPicture.value = currentIndex == START_INDEX
+        }
     }
 
     private fun loadNextPicture() {
         viewModelScope.launch {
             _isLoading.value = true
-            listImage.add(loadRandomPicture.invoke())
-            getCurrentPicture()
+            val pic = loadRandomPicture.invoke()
+            pic?.let {
+                listImage.add(it)
+                getCurrentPicture()
+                currentIndex++
+            }
             _isLoading.value = false
         }
     }
 
     fun getNextImage() {
-        currentIndex++
-        if (currentIndex == listImage.size) {
+        if (currentIndex == listImage.size - 1) {
             loadNextPicture()
         } else {
             getCurrentPicture()
         }
     }
 
-    fun getPreviousPivture() {
+    fun getPreviousPicture() {
         currentIndex--
-
         getCurrentPicture()
     }
 

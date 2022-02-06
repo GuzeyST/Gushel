@@ -1,8 +1,10 @@
 package ru.guzeyst.gushelexamtinkoff.data
 
+import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LiveData
 import ru.guzeyst.gushelexamtinkoff.data.database.DataBase
+import ru.guzeyst.gushelexamtinkoff.data.database.PicturesDao
 import ru.guzeyst.gushelexamtinkoff.data.database.entity.TypeChapter
 import ru.guzeyst.gushelexamtinkoff.data.mapper.PictureMapper
 import ru.guzeyst.gushelexamtinkoff.data.network.ApiFactory
@@ -10,18 +12,26 @@ import ru.guzeyst.gushelexamtinkoff.data.network.ApiService
 import ru.guzeyst.gushelexamtinkoff.data.network.model.ResponseDto
 import ru.guzeyst.gushelexamtinkoff.domain.PictureRepository
 import ru.guzeyst.gushelexamtinkoff.domain.model.Picture
+import javax.inject.Inject
 
-class PictureRepositoryImpl(context: Context) : PictureRepository {
 
-    private val pictureMapper = PictureMapper()
-    private val picturesDao = DataBase.getInstance(context).pictureDao()
+class PictureRepositoryImpl @Inject constructor(
+    private val application: Application,
+    private val pictureMapper: PictureMapper,
+    private val picturesDao: PicturesDao
+) : PictureRepository {
+
     private val apiService = ApiFactory.apiService
 
-    override suspend fun loadRandomPicture(): Picture {
-        val picDto = apiService.getPictureRandom()
-        val picEntity = pictureMapper.dtoToEntity(picDto, TypeChapter.RANDOM)
-        picturesDao.insertPicture(picEntity)
-        val pic = pictureMapper.dtoToPicture(picDto)
+    override suspend fun loadRandomPicture(): Picture? {
+        val pic = try {
+            val picDto = apiService.getPictureRandom()
+            val picEntity = pictureMapper.dtoToEntity(picDto, TypeChapter.RANDOM)
+            picturesDao.insertPicture(picEntity)
+            pictureMapper.dtoToPicture(picDto)
+        } catch (e: Exception) {
+            null
+        }
         return pic
     }
 
@@ -77,9 +87,12 @@ class PictureRepositoryImpl(context: Context) : PictureRepository {
     }
 
     private suspend fun loadPicturesList(chapter: TypeChapter, pageNumber: Int) {
-        val response = loadResponse(chapter, pageNumber)
-        val listPictItem = pictureMapper.responseDtoToListItem(response, chapter)
-        picturesDao.insertList(listPictItem)
-    }
+        try {
+            val response = loadResponse(chapter, pageNumber)
+            val listPictItem = pictureMapper.responseDtoToListItem(response, chapter)
+            picturesDao.insertList(listPictItem)
+        } catch (e: java.lang.Exception) {
 
+        }
+    }
 }

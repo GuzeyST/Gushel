@@ -12,9 +12,6 @@ import ru.guzeyst.gushelexamtinkoff.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val viewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
-    }
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +21,4 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigation = binding.bottomNavigationView
         bottomNavigation.setupWithNavController(navController)
     }
-
-
 }

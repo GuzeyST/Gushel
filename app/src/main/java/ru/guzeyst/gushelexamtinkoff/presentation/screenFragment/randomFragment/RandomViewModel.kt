@@ -1,9 +1,10 @@
 package ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.randomFragment
 
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.guzeyst.gushelexamtinkoff.data.PictureRepositoryImpl
 import ru.guzeyst.gushelexamtinkoff.domain.model.Picture
 import ru.guzeyst.gushelexamtinkoff.domain.useCase.database.GetPicturesFromDB
 import ru.guzeyst.gushelexamtinkoff.domain.useCase.network.LoadRandomPicture
@@ -38,7 +39,7 @@ class RandomViewModel @Inject constructor(
     }
 
     private fun getCurrentPicture() {
-        if (!listImage.isEmpty()) {
+        if (listImage.isNotEmpty()) {
             _currentPictures.value = listImage[currentIndex]
             _isLastPicture.value = currentIndex == START_INDEX || currentIndex == 0
         }

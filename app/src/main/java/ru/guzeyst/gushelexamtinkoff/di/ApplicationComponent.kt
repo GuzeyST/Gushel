@@ -1,6 +1,5 @@
 package ru.guzeyst.gushelexamtinkoff.di
 
-import android.app.Activity
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component

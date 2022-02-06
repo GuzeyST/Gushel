@@ -1,9 +1,7 @@
 package ru.guzeyst.gushelexamtinkoff.data
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.LiveData
-import ru.guzeyst.gushelexamtinkoff.data.database.DataBase
 import ru.guzeyst.gushelexamtinkoff.data.database.PicturesDao
 import ru.guzeyst.gushelexamtinkoff.data.database.entity.TypeChapter
 import ru.guzeyst.gushelexamtinkoff.data.mapper.PictureMapper

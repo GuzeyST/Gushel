@@ -1,11 +1,8 @@
 package ru.guzeyst.gushelexamtinkoff.presentation.screenFragment.hotFragment
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.guzeyst.gushelexamtinkoff.data.PictureRepositoryImpl
 import ru.guzeyst.gushelexamtinkoff.domain.useCase.database.GetHotListFromDB
 import ru.guzeyst.gushelexamtinkoff.domain.useCase.network.LoadHotPicturesList
 import javax.inject.Inject
